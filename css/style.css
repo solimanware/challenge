@@ -1,0 +1,192 @@
+html,
+body {
+    /* this is the actual height of the whole display > 100vh will case issue with android when url bar is present pushing conent down to 100% under url bar   */
+    height: 100%;
+    font-family: 'tradegothiclt-bold', sans-serif;
+    -webkit-touch-callout: none;
+    /* disable user text selection for unwanted touch behaviors */
+    -webkit-user-select: none;
+    /* Webkit */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE 10  */
+    /* Currently not supported in Opera but will be soon */
+    -o-user-select: none;
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 1fr auto;
+    grid-template-rows: 1fr auto;
+}
+
+header {
+    text-align: center
+}
+
+canvas {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -2;
+}
+
+article {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: -ms-grid;
+    display: grid;
+    z-index: -1;
+}
+
+#typewriter {
+    margin: auto;
+    border-right: .15em solid orange;
+    color: white;
+    font-size: 30px;
+    font-size: 5vw;
+    -webkit-animation: caret .7s steps(1) infinite;
+    animation: caret .7s steps(1) infinite;
+}
+
+
+/* The typewriter cursor effect */
+
+@-webkit-keyframes caret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+@keyframes caret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+footer {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-row: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    -ms-grid-columns: 1fr auto;
+    grid-template-columns: 1fr auto;
+    grid-gap: 1em;
+}
+
+#badges img {
+    width: 98%;
+    max-width: 208px;
+    height: auto;
+    background: red;
+    float: right;
+}
+
+
+/* container */
+
+#contacts {
+    display: -ms-grid;
+    display: grid;
+    text-align: right;
+}
+
+#contacts-wrapper {
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+#call-mobile {
+    -webkit-transition-property: opacity, left;
+    -o-transition-property: opacity, left;
+    transition-property: opacity, left;
+    -webkit-animation: fadein 2s;
+            animation: fadein 2s;
+}
+
+#arrow {
+    display: none;
+    height: 18px;
+    width: auto;
+    -webkit-animation: fadein 1s;
+            animation: fadein 1s;
+}
+
+.contact {
+    color: white;
+    text-decoration: none;
+    padding-bottom: 3px;
+}
+
+.contact:hover {
+    -webkit-animation: .5s slidein forwards;
+    animation: .5s slidein forwards;
+}
+
+.contact:nth-of-type(1) {
+    margin-right: 7px;
+}
+
+@-webkit-keyframes slidein {
+    from {
+        border-bottom: transparent;
+    }
+    to {
+        border-bottom: 2px solid white;
+        ;
+    }
+}
+
+@keyframes slidein {
+    from {
+        border-bottom: transparent;
+    }
+    to {
+        border-bottom: 2px solid white;
+        ;
+    }
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media(max-width:433px) {
+    #contacts {
+        text-align: center;
+    }
+    .mobile-hide {
+        display: none;
+    }
+    #call-mobile {
+        display: none;
+    }
+}
