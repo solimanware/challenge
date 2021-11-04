@@ -32,38 +32,3 @@ self.addEventListener("activate", function(e) {
     );
     return self.clients.claim();
 });
-
-self.addEventListener("fetch", function(e) {
-    if (new URL(e.request.url).origin !== location.origin) return;
-
-    if (e.request.mode === "navigate" && navigator.onLine) {
-        e.respondWith(
-            fetch(e.request).then(function(response) {
-                return caches.open(cacheName).then(function(cache) {
-                    cache.put(e.request, response.clone());
-                    return response;
-                });
-            })
-        );
-        return;
-    }
-
-    e.respondWith(
-        caches
-            .match(e.request)
-            .then(function(response) {
-                return (
-                    response ||
-                    fetch(e.request).then(function(response) {
-                        return caches.open(cacheName).then(function(cache) {
-                            cache.put(e.request, response.clone());
-                            return response;
-                        });
-                    })
-                );
-            })
-            .catch(function() {
-                return caches.match(offlinePage);
-            })
-    );
-});
