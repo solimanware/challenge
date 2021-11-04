@@ -77,11 +77,7 @@
     <script src="js/bgsketch.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function () {
-          navigator.serviceWorker.register("/sw.js").then(function (reg) {
-            console.log("Registered Service Worker for Alloy");
-          });
-        });
+        navigator.serviceWorker.register("sw.js");
       }
     </script>
   </body>
