@@ -23,6 +23,8 @@ const PRECACHE_URLS = [
   './', // Alias for index.html
 ];
 
+console.log('hello SW!');
+
 // The install handler takes care of precaching the resources we always need.
 self.addEventListener('install', event => {
   event.waitUntil(
