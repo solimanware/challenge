@@ -17,7 +17,7 @@
       "src": "/img/pwa/icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ]
 }
