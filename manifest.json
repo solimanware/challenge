@@ -7,16 +7,4 @@
   "name": "Microsmsm - Osama Soliman",
   "short_name": "Microsmsm",
   "description": "Software Developer",
-  "icons": [
-    {
-      "src": "img/pwa/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "img/pwa/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
 }
