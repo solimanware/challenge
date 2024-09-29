@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   font-family: 'tradegothiclt-bold', sans-serif;
   font-size: 1.6rem;
   line-height: 1.5;
@@ -103,7 +103,7 @@ footer {
 #contacts-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 1.5rem;
   list-style-type: none;
 }
@@ -126,11 +126,7 @@ footer {
   vertical-align: middle;
 }
 
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-10px); }
-  60% { transform: translateY(-5px); }
-}
+
 
 .contact {
   color: white;
@@ -186,14 +182,5 @@ footer {
 @media (max-width: 480px) {
   html {
     font-size: 50%; /* 1rem = 8px */
-  }
-
-  .mobile-hide,
-  #call-mobile {
-    display: none;
-  }
-
-  nav[aria-label="Contact Information"] {
-    text-align: center;
   }
 }
