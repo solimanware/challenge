@@ -1,107 +1,81 @@
-//electric sketch by https://codepen.io/natewiley/ 
-var s = Sketch.create({
-    autoclear: false
-});
-var max = 80;
-var dots = [];
-var clearColor = "rgba(0,0,0,.1)";
-var hue = 0;
-var connectDistance = s.width / 10;
-var center = {
-    x: s.width / 2,
-    y: s.height / 2
-};
+// Electric sketch inspired by https://codepen.io/natewiley/
+const sketch = Sketch.create({ autoclear: false });
+const MAX_DOTS = 80;
+const CLEAR_COLOR = "rgba(0,0,0,.1)";
+const CONNECT_DISTANCE_FACTOR = 0.1;
 
-var getDistance = function (x1, x2, y1, y2) {
-    return sqrt((pow(x1 - x2, 2)) + (pow(y1 - y2, 2)))
-};
+let dots = [];
+let hue = 0;
+let center = { x: sketch.width / 2, y: sketch.height / 2 };
 
-function D() {}
+const getDistance = (x1, y1, x2, y2) => Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 
-D.prototype = {
-    init: function () {
-        this.x = random(s.width);
-        this.y = random(s.height);
-        this.vx = random(-3, 3);
-        this.vy = random(-3, 3);
-    },
+class Dot {
+    constructor() {
+        this.init();
+    }
 
-    draw: function () {
-        s.strokeStyle = "hsla(" + hue + ", 100%, 50%, .05)";
-        s.beginPath();
-        s.moveTo(this.x, this.y);
-        s.lineTo(center.x || s.width / 2, center.y || s.height / 2);
-        s.closePath();
-        s.stroke();
-        for (var i in dots) {
-            d = dots[i];
-            var dist = getDistance(this.x, d.x, this.y, d.y);
-            if (dist < connectDistance) {
-                s.globalCompositeOperation = "lighter";
-                s.strokeStyle = "hsla(" + hue + ", 100%, 50%, .8)";
-                s.beginPath();
-                s.moveTo(this.x, this.y);
-                s.lineTo(d.x, d.y);
-                s.closePath();
-                s.stroke();
-            }
-        }
+    init() {
+        this.x = Math.random() * sketch.width;
+        this.y = Math.random() * sketch.height;
+        this.vx = Math.random() * 6 - 3;
+        this.vy = Math.random() * 6 - 3;
+    }
+
+    draw() {
+        sketch.strokeStyle = `hsla(${hue}, 100%, 50%, .05)`;
+        sketch.beginPath();
+        sketch.moveTo(this.x, this.y);
+        sketch.lineTo(center.x, center.y);
+        sketch.stroke();
+
+        this.connectNearbyDots();
         this.update();
-    },
+    }
 
-    update: function () {
-        s.globalCompositeOperation = "source-over";
-        this.color = "hsl(" + hue + ", 100%, 50%)";
+    connectNearbyDots() {
+        const connectDistance = sketch.width * CONNECT_DISTANCE_FACTOR;
+        dots.forEach(dot => {
+            const dist = getDistance(this.x, this.y, dot.x, dot.y);
+            if (dist < connectDistance) {
+                sketch.globalCompositeOperation = "lighter";
+                sketch.strokeStyle = `hsla(${hue}, 100%, 50%, .8)`;
+                sketch.beginPath();
+                sketch.moveTo(this.x, this.y);
+                sketch.lineTo(dot.x, dot.y);
+                sketch.stroke();
+            }
+        });
+    }
+
+    update() {
+        sketch.globalCompositeOperation = "source-over";
+        this.color = `hsl(${hue}, 100%, 50%)`;
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.x >= s.width || this.x <= 0) {
-            this.vx *= -1;
-        }
-
-        if (this.y >= s.height || this.y <= 0) {
-            this.vy *= -1;
-        }
-
+        if (this.x >= sketch.width || this.x <= 0) this.vx *= -1;
+        if (this.y >= sketch.height || this.y <= 0) this.vy *= -1;
     }
+}
+
+sketch.setup = () => {
+    dots = Array.from({ length: MAX_DOTS }, () => new Dot());
 };
 
+sketch.draw = () => dots.forEach(dot => dot.draw());
 
-s.setup = function () {
-    for (var i = 0; i < max; i++) {
-        var d = new D();
-        d.init();
-        dots.push(d);
-    }
-};
-
-s.draw = function () {
-    for (var i in dots) {
-        dots[i].draw();
-    }
-};
-
-s.update = function () {
-    s.fillStyle = clearColor;
-    s.fillRect(0, 0, s.width, s.height);
+sketch.update = () => {
+    sketch.fillStyle = CLEAR_COLOR;
+    sketch.fillRect(0, 0, sketch.width, sketch.height);
     hue++;
 };
 
-//using acuall pointer location instead of canvas pointer location as canvas in sat backwards as background
-document.body.addEventListener("mousedown", (ev)=>{
-    center.x = ev.clientX;
-    center.y = ev.clientY;
+document.body.addEventListener("mousedown", (ev) => {
+    center = { x: ev.clientX, y: ev.clientY };
 });
 
-// s.mousedown = function () {
-//     center.x = s.mouse.x;
-//     center.y = s.mouse.y;
-// };
-
-s.resize = function () {
-    center.x = s.width / 2;
-    center.y = s.height / 2;
-    for (var i in dots) {
-        dots[i].init();
-    }
+sketch.resize = () => {
+    center = { x: sketch.width / 2, y: sketch.height / 2 };
+    dots.forEach(dot => dot.init());
 };

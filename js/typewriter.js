@@ -1,99 +1,93 @@
 const config = {
-    //text that should writer display:
     textData: [
         'Oh..',
         'Hello... 👋😄',
         'How are you..?',
         'My name is Osama Soliman',
-        '＠Microsmsm',
+        '＠Solimanware',
         'And I am open to new challenges 💪',
         'So do you have a cool challenge for me 😉?'
     ],
-    //letter index that writer should start from:
     startIndex: 0,
-    //element id that writer should draw to:
     id: 'typewriter',
-    //time after every letter stroke in ms. the less the more (type speed)
-    waitAfter: 50
-}
+    waitAfter: 50,
+    initialDelay: 800,
+    textDelay: 700,
+    finalDelay: 300
+};
 
-//waiting function //instead of writing setTimeout everytime
-const wait = (ms) => new Promise(r => setTimeout(r, ms));
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-//https://codereview.stackexchange.com/questions/185294/typewriter-animation-implemented-using-recursive-asynchronous-function
-//core function Note dont need text position (n)
-async function typeWriter(text, elementId, waitAfter) {
-    var n = 0;
-    // Following DOM query only done once saving lots of time
-    const el = document.getElementById(elementId);
-    const wait = () => new Promise(r => setTimeout(r, waitAfter));
-    // Preventing re flow overhead by using textContent rather than innerHTML
-    const render = () => {
-        el.textContent = (text.substring(0, n + 1))
-         //ratio that text should resize to fit screen with
-         let ratio = n / 30;
-         //if not space ...
-         if (text[n] !== " ") {
-             //apply this ratio
-             el.style.fontSize = `${ 5 - ratio}vw`; //es6 template evaluation
-         }
-    };
-    while (n < text.length) {
-        requestAnimationFrame(render); // Calls existing function
-        // thus avoid unneeded function state capture via closure
-        await wait(waitAfter);
-        n++; // add after await so render gets
-        // the correct value
+class TypeWriter {
+    constructor(config) {
+        this.config = config;
+        this.element = document.getElementById(config.id);
+    }
+
+    async type(text) {
+        const { waitAfter } = this.config;
+        for (let i = 0; i <= text.length; i++) {
+            await wait(waitAfter);
+            this.render(text.substring(0, i), i);
+        }
+    }
+
+    render(text, length) {
+        this.element.textContent = text;
+        if (text[length - 1] !== ' ') {
+            const ratio = length / 30;
+            this.element.style.fontSize = `${5 - ratio}vw`;
+        }
+    }
+
+    async animate() {
+        const { textData, textDelay, initialDelay } = this.config;
+        await wait(initialDelay);
+        for (const text of textData) {
+            await wait(textDelay);
+            await this.type(text);
+            await wait(textDelay);
+        }
     }
 }
 
-// starting our script... using config object with arguments destruction es6
-// trick:
-async function startScript({textData, id, waitAfter}) {
-    //wait before excuding the script:
-    await wait(800);
-    for (let text of textData) {
-        //wait before wrting the text from text data
-        await wait(700);
-        await typeWriter(text, id, waitAfter);
-        //wait after writing the text
-        await wait(700);
+class UIManager {
+    constructor() {
+        this.typewriter = document.getElementById('typewriter');
+        this.callMobile = document.getElementById('call-mobile');
+        this.arrow = document.getElementById('arrow');
+    }
+
+    async finalAnimation() {
+        const { finalDelay } = config;
+        await wait(finalDelay);
+        await this.type("Contact me now");
+        this.typewriter.style.borderColor = "transparent";
+        await wait(500);
+        this.callMobile.style.display = "unset";
+        this.arrow.style.display = "unset";
+        await wait(7000);
+        this.arrow.style.display = "none";
+        await wait(5000);
+        await this.type("Waiting you 😉");
+        await wait(500);
+        this.arrow.style.display = "unset";
+        await wait(5000);
+        this.arrow.style.display = "none";
+    }
+
+    async type(text) {
+        const writer = new TypeWriter({ ...config, textData: [text] });
+        await writer.animate();
     }
 }
 
-//calling out start function
-startScript(config).then(async() => {
-    //adding more ux to beatify the visuals
-    await wait(300)
-    await typeWriter("Contact me now", 'typewriter', 50)
-    document
-        .getElementById('typewriter')
-        .style
-        .borderColor = "transparent"
-    await wait(500)
-    document
-        .getElementById("call-mobile")
-        .style
-        .display = "unset";
-    document
-        .getElementById("arrow")
-        .style
-        .display = "unset";
-    await wait(7000)
-    document
-        .getElementById("arrow")
-        .style
-        .display = "none";
-    await wait(5000)
-    await typeWriter("Waiting you 😉", 'typewriter', 50)
-    await wait(500)
-    document
-        .getElementById("arrow")
-        .style
-        .display = "unset";
-    await wait(5000)
-    document
-        .getElementById("arrow")
-        .style
-        .display = "none";
-})
+async function main() {
+    const writer = new TypeWriter(config);
+    await writer.animate();
+
+    const ui = new UIManager();
+    await ui.finalAnimation();
+}
+
+main().catch(console.error);

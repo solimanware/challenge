@@ -1,192 +1,199 @@
-html,
-body {
-    /* this is the actual height of the whole display > 100vh will case issue with android when url bar is present pushing conent down to 100% under url bar   */
-    height: 100%;
-    font-family: 'tradegothiclt-bold', sans-serif;
-    -webkit-touch-callout: none;
-    /* disable user text selection for unwanted touch behaviors */
-    -webkit-user-select: none;
-    /* Webkit */
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* IE 10  */
-    /* Currently not supported in Opera but will be soon */
-    -o-user-select: none;
-    user-select: none;
+/* Reset and base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-rows: 1fr auto;
-    grid-template-rows: 1fr auto;
+  min-height: 100vh;
+  font-family: 'tradegothiclt-bold', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: #ffffff;
+  background-color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow-x: hidden;
 }
 
+/* Disable text selection */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Header styles */
 header {
-    text-align: center
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 2.4rem;
+  font-weight: bold;
+  /* background-color: rgba(0, 0, 0, 0.8); */
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
+/* Canvas styles */
 canvas {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: -2;
+  position: fixed;
+  inset: 0;
+  z-index: -2;
 }
 
-article {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    display: -ms-grid;
-    display: grid;
-    z-index: -1;
+/* Main styles */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  z-index: 1;
 }
 
+/* Typewriter effect */
 #typewriter {
-    margin: auto;
-    border-right: .15em solid orange;
-    color: white;
-    font-size: 30px;
-    font-size: 5vw;
-    -webkit-animation: caret .7s steps(1) infinite;
-    animation: caret .7s steps(1) infinite;
+  font-size: clamp(2rem, 5vw, 4rem);
+  text-align: center;
+  border-right: 0.15em solid orange;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 3.5s steps(40, end), caret 0.75s step-end infinite;
 }
 
-
-/* The typewriter cursor effect */
-
-@-webkit-keyframes caret {
-    50% {
-        border-color: transparent;
-    }
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
 
 @keyframes caret {
-    50% {
-        border-color: transparent;
-    }
+  from, to { border-color: transparent }
+  50% { border-color: orange }
 }
 
+/* Footer styles */
 footer {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-row: 2;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    -ms-grid-columns: 1fr auto;
-    grid-template-columns: 1fr auto;
-    grid-gap: 1em;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+  /* background-color: rgba(0, 0, 0, 0.8); */
 }
 
 #badges img {
-    width: 98%;
-    max-width: 208px;
-    height: auto;
-    background: red;
-    float: right;
+  width: 100%;
+  max-width: 20.8rem;
+  height: auto;
+  transition: transform 0.3s ease;
 }
 
-
-/* container */
-
-#contacts {
-    display: -ms-grid;
-    display: grid;
-    text-align: right;
+#badges img:hover {
+  transform: scale(1.05);
 }
 
 #contacts-wrapper {
-    -ms-flex-item-align: center;
-    -ms-grid-row-align: center;
-    align-self: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  list-style-type: none;
+}
+
+.icon {
+  margin-right: 0.5rem;
+  font-size: 1.8rem;
 }
 
 #call-mobile {
-    -webkit-transition-property: opacity, left;
-    -o-transition-property: opacity, left;
-    transition-property: opacity, left;
-    -webkit-animation: fadein 2s;
-            animation: fadein 2s;
+  transition: all 0.3s ease;
+  animation: fadein 2s;
 }
 
 #arrow {
-    display: none;
-    height: 18px;
-    width: auto;
-    -webkit-animation: fadein 1s;
-            animation: fadein 1s;
+  display: none;
+  height: 1.8rem;
+  width: auto;
+  animation: fadein 1s, bounce 2s infinite;
+  vertical-align: middle;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
 }
 
 .contact {
-    color: white;
-    text-decoration: none;
-    padding-bottom: 3px;
+  color: white;
+  text-decoration: none;
+  padding-bottom: 0.3rem;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.contact:hover {
-    -webkit-animation: .5s slidein forwards;
-    animation: .5s slidein forwards;
+.contact::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
 }
 
-.contact:nth-of-type(1) {
-    margin-right: 7px;
+.contact:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
-@-webkit-keyframes slidein {
-    from {
-        border-bottom: transparent;
-    }
-    to {
-        border-bottom: 2px solid white;
-        ;
-    }
-}
-
-@keyframes slidein {
-    from {
-        border-bottom: transparent;
-    }
-    to {
-        border-bottom: 2px solid white;
-        ;
-    }
-}
-
-@-webkit-keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
+/* Animations */
 @keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@media(max-width:433px) {
-    #contacts {
-        text-align: center;
-    }
-    .mobile-hide {
-        display: none;
-    }
-    #call-mobile {
-        display: none;
-    }
+/* Media queries */
+@media (max-width: 768px) {
+  html {
+    font-size: 56.25%; /* 1rem = 9px */
+  }
+
+  footer {
+    grid-template-columns: 1fr;
+  }
+
+  #contacts-wrapper {
+    justify-content: center;
+  }
+
+  #badges {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 50%; /* 1rem = 8px */
+  }
+
+  .mobile-hide,
+  #call-mobile {
+    display: none;
+  }
+
+  nav[aria-label="Contact Information"] {
+    text-align: center;
+  }
 }
