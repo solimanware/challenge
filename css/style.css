@@ -87,13 +87,13 @@ footer {
   align-items: center;
   padding: 2rem;
   /* background-color: rgba(0, 0, 0, 0.8); */
+  min-height: 100px; /* Add a minimum height to reduce layout shifts */
 }
 
-#badges img {
-  width: 100%;
-  max-width: 20.8rem;
-  height: auto;
-  transition: transform 0.3s ease;
+/* Add explicit dimensions to images */
+#badges img, #arrow {
+  width: 208px; /* Explicit width */
+  height: auto; /* Maintain aspect ratio */
 }
 
 #badges img:hover {
@@ -125,8 +125,6 @@ footer {
   animation: fadein 1s, bounce 2s infinite;
   vertical-align: middle;
 }
-
-
 
 .contact {
   color: white;

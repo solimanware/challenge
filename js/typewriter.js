@@ -26,15 +26,17 @@ class TypeWriter {
 
     async type(text) {
         const { waitAfter } = this.config;
+        const fragment = document.createDocumentFragment();
         for (let i = 0; i <= text.length; i++) {
             await wait(waitAfter);
-            this.render(text.substring(0, i), i);
+            fragment.textContent = text.substring(0, i);
+            this.render(fragment, i);
         }
     }
 
-    render(text, length) {
-        this.element.textContent = text;
-        if (text[length - 1] !== ' ') {
+    render(fragment, length) {
+        this.element.textContent = fragment.textContent;
+        if (fragment.textContent[length - 1] !== ' ') {
             const ratio = length / 30;
             this.element.style.fontSize = `${5 - ratio}vw`;
         }
@@ -51,6 +53,7 @@ class TypeWriter {
     }
 }
 
+// Optimize UIManager
 class UIManager {
     constructor() {
         this.typewriter = document.getElementById('typewriter');
@@ -63,17 +66,20 @@ class UIManager {
         await wait(finalDelay);
         await this.type("Contact me now");
         this.typewriter.style.borderColor = "transparent";
-        await wait(500);
         this.callMobile.style.display = "unset";
         this.arrow.style.display = "unset";
-        await wait(7000);
-        this.arrow.style.display = "none";
-        await wait(5000);
-        await this.type("Waiting you 😉");
-        await wait(500);
-        this.arrow.style.display = "unset";
-        await wait(5000);
-        this.arrow.style.display = "none";
+        
+        // Use setTimeout instead of multiple waits
+        setTimeout(() => {
+            this.arrow.style.display = "none";
+            setTimeout(async () => {
+                await this.type("Waiting you 😉");
+                this.arrow.style.display = "unset";
+                setTimeout(() => {
+                    this.arrow.style.display = "none";
+                }, 5000);
+            }, 5000);
+        }, 7000);
     }
 
     async type(text) {
@@ -91,3 +97,22 @@ async function main() {
 }
 
 main().catch(console.error);
+
+// Use requestAnimationFrame for smoother animations
+function animateArrow() {
+    const arrow = document.getElementById('arrow');
+    let direction = 1;
+    let position = 0;
+
+    function step() {
+        position += direction;
+        if (position > 10 || position < 0) direction *= -1;
+        arrow.style.transform = `translateY(${position}px)`;
+        requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+}
+
+// Call animateArrow instead of using CSS animation
+animateArrow();
