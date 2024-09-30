@@ -80,8 +80,6 @@ sketch.resize = () => {
     dots.forEach(dot => dot.init());
 };
 
-// Use passive event listeners
-document.addEventListener('scroll', handleScroll, { passive: true });
 
 // Optimize long-running tasks
 function processChunk(tasks, index) {
