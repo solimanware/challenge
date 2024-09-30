@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /js/
+Disallow: /css/
+
+Sitemap: https://soliman.ai/sitemap.xml
+
+# Optimize crawl rate
+Crawl-delay: 10
