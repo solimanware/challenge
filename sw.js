@@ -1,5 +1,5 @@
 // Service Worker for optimal PWA performance
-const CACHE_NAME = 'soliman-ai-cache-v5';
+const CACHE_NAME = 'soliman-ai-cache-v6';
 const OFFLINE_URL = 'index.html';
 
 const ASSETS_TO_CACHE = [
