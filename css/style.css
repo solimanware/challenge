@@ -154,6 +154,10 @@ footer {
   transform-origin: bottom left;
 }
 
+#contacts-wrapper {
+    justify-content: right;
+  }
+
 /* Animations */
 @keyframes fadein {
   from { opacity: 0; }
