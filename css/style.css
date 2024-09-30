@@ -1,12 +1,15 @@
 /* Reset and base styles */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
-  font-size: 62.5%; /* 1rem = 10px */
+  font-size: 62.5%;
+  /* 1rem = 10px */
 }
 
 body {
@@ -14,6 +17,13 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
   overflow-x: hidden;
+  font-family: 'tradegothiclt-bold', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: #ffffff;
+  background-color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Disable text selection */
@@ -60,17 +70,28 @@ main {
   white-space: nowrap;
   overflow: hidden;
   animation: typing 3.5s steps(40, end), caret 0.75s step-end infinite;
-  min-height: 60vh; /* Add this to reserve space for the typewriter text */
 }
 
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+  from {
+    width: 0
+  }
+
+  to {
+    width: 100%
+  }
 }
 
 @keyframes caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange }
+
+  from,
+  to {
+    border-color: transparent
+  }
+
+  50% {
+    border-color: orange
+  }
 }
 
 /* Footer styles */
@@ -81,7 +102,8 @@ footer {
   align-items: center;
   padding: 2rem;
   /* background-color: rgba(0, 0, 0, 0.8); */
-  min-height: 100px; /* Add a minimum height to reduce layout shifts */
+  min-height: 100px;
+  /* Add a minimum height to reduce layout shifts */
 }
 
 #badges img:hover {
@@ -141,24 +163,37 @@ footer {
 }
 
 #contacts-wrapper {
-    justify-content: right;
-  }
+  justify-content: right;
+}
 
 /* Animations */
 @keyframes fadein {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* Media queries */
 @media (max-width: 768px) {
   html {
-    font-size: 56.25%; /* 1rem = 9px */
+    font-size: 56.25%;
+    /* 1rem = 9px */
   }
 
   footer {
@@ -176,7 +211,8 @@ footer {
 
 @media (max-width: 480px) {
   html {
-    font-size: 50%; /* 1rem = 8px */
+    font-size: 50%;
+    /* 1rem = 8px */
   }
 }
 
