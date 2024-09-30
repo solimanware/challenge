@@ -20,12 +20,12 @@
 
   <link rel="canonical" href="https://challenge.soliman.ai">
   <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#317EFB">
   <link rel="apple-touch-icon" href="/img/pwa/icon-512.png">
 
-  <script src="https://kit.fontawesome.com/9c8f306e75.js" crossorigin="anonymous" async></script>
+  <script rel="preconnect" src="https://kit.fontawesome.com/9c8f306e75.js" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
@@ -43,11 +43,8 @@
     <nav aria-label="Contact Information">
       <ul id="contacts-wrapper">
         <li>
-          <picture>
-            <source srcset="img/arrow.gif" type="image/gif">
-            <img id="arrow" src="img/arrow.gif" alt="Pointing arrow" aria-hidden="true" width="34" height="24"
-              loading="lazy">
-          </picture>
+          <img id="arrow" src="img/arrow.gif" alt="Pointing arrow" aria-hidden="true" width="34" height="24"
+            loading="lazy">
         </li>
         <li>
           <a class="contact mobile-hide" href="https://www.github.com/solimanware" aria-label="GitHub Profile">
@@ -84,28 +81,28 @@
           loading="lazy">
       </a>
     </div>
-    <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "Person",
-      "name": "Osama Soliman",
-      "url": "https://solimanware.com",
-      "sameAs": [
-        "https://www.github.com/solimanware",
-        "https://www.linkedin.com/in/solimanware",
-        "https://stackoverflow.com/users/4591364/solimanware"
-      ]
-    }
-    </script>
   </footer>
 
   <script src="js/typewriter.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sketch.js/1.0.0/sketch.min.js" defer></script>
+  <script rel="preconnect" src="https://cdnjs.cloudflare.com/ajax/libs/sketch.js/1.0.0/sketch.min.js" defer></script>
   <script src="js/bgsketch.js" defer></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js", { scope: '/' });
     }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Person",
+    "name": "Osama Soliman",
+    "url": "https://solimanware.com",
+    "sameAs": [
+      "https://www.github.com/solimanware",
+      "https://www.linkedin.com/in/solimanware",
+      "https://stackoverflow.com/users/4591364/solimanware"
+    ]
+  }
   </script>
 </body>
 

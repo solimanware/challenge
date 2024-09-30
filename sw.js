@@ -1,5 +1,5 @@
 // Service Worker for optimal PWA performance
-const CACHE_NAME = 'soliman-ai-cache-v6';
+const CACHE_NAME = 'soliman-ai-cache-v7';
 const OFFLINE_URL = 'index.html';
 
 const ASSETS_TO_CACHE = [
@@ -8,7 +8,9 @@ const ASSETS_TO_CACHE = [
   '/css/style.css',
   '/js/typewriter.js',
   '/js/bgsketch.js',
+  '/js/bgsketch-worker.js',
   '/img/pwa/icon-512.png',
+  '/img/arrow.gif',
   '/favicon.ico',
   '/manifest.json',
   'https://cdnjs.cloudflare.com/ajax/libs/sketch.js/1.0.0/sketch.min.js',
