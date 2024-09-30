@@ -132,7 +132,7 @@ footer {
   display: none;
   height: 1.8rem;
   width: auto;
-  animation: fadein 1s, bounce 2s infinite;
+  /* animation: fadein 1s, bounce 2s infinite; */
   vertical-align: middle;
 }
 
