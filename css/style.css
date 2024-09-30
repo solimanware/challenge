@@ -84,12 +84,6 @@ footer {
   min-height: 100px; /* Add a minimum height to reduce layout shifts */
 }
 
-/* Add explicit dimensions to images */
-#badges img, #arrow {
-  width: 208px; /* Explicit width */
-  height: auto; /* Maintain aspect ratio */
-}
-
 #badges img:hover {
   transform: scale(1.05);
 }
@@ -118,8 +112,6 @@ footer {
   width: auto;
   animation: fadein 1s, bounce 2s infinite;
   vertical-align: middle;
-  width: 208px;
-  height: 208px;
 }
 
 .contact {
