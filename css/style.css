@@ -11,13 +11,6 @@ html {
 
 body {
   min-height: 100dvh;
-  font-family: 'tradegothiclt-bold', sans-serif;
-  font-size: 1.6rem;
-  line-height: 1.5;
-  color: #ffffff;
-  background-color: #000000;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   display: grid;
   grid-template-rows: auto 1fr auto;
   overflow-x: hidden;
@@ -67,6 +60,7 @@ main {
   white-space: nowrap;
   overflow: hidden;
   animation: typing 3.5s steps(40, end), caret 0.75s step-end infinite;
+  min-height: 60vh; /* Add this to reserve space for the typewriter text */
 }
 
 @keyframes typing {
@@ -124,6 +118,8 @@ footer {
   width: auto;
   animation: fadein 1s, bounce 2s infinite;
   vertical-align: middle;
+  width: 208px;
+  height: 208px;
 }
 
 .contact {
@@ -162,6 +158,11 @@ footer {
   to { opacity: 1; }
 }
 
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
 /* Media queries */
 @media (max-width: 768px) {
   html {
@@ -185,4 +186,9 @@ footer {
   html {
     font-size: 50%; /* 1rem = 8px */
   }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }

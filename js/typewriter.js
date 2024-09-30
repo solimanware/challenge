@@ -101,12 +101,10 @@ main().catch(console.error);
 // Use requestAnimationFrame for smoother animations
 function animateArrow() {
     const arrow = document.getElementById('arrow');
-    let direction = 1;
     let position = 0;
 
-    function step() {
-        position += direction;
-        if (position > 10 || position < 0) direction *= -1;
+    function step(timestamp) {
+        position = 5 * Math.sin(timestamp / 200);
         arrow.style.transform = `translateY(${position}px)`;
         requestAnimationFrame(step);
     }
@@ -114,5 +112,22 @@ function animateArrow() {
     requestAnimationFrame(step);
 }
 
-// Call animateArrow instead of using CSS animation
-animateArrow();
+// Lazy load the arrow image
+const arrow = document.getElementById('arrow');
+if (arrow) {
+    arrow.loading = 'lazy';
+}
+
+function processChunk(tasks, index) {
+    const chunkSize = 5;
+    for (let i = 0; i < chunkSize && index < tasks.length; i++, index++) {
+        tasks[index]();
+    }
+    if (index < tasks.length) {
+        requestAnimationFrame(() => processChunk(tasks, index));
+    }
+}
+
+// Usage
+const tasks = [/* your long-running tasks */];
+processChunk(tasks, 0);

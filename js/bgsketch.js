@@ -79,3 +79,21 @@ sketch.resize = () => {
     center = { x: sketch.width / 2, y: sketch.height / 2 };
     dots.forEach(dot => dot.init());
 };
+
+// Use passive event listeners
+document.addEventListener('scroll', handleScroll, { passive: true });
+
+// Optimize long-running tasks
+function processChunk(tasks, index) {
+    const chunkSize = 5;
+    for (let i = 0; i < chunkSize && index < tasks.length; i++, index++) {
+        tasks[index]();
+    }
+    if (index < tasks.length) {
+        requestAnimationFrame(() => processChunk(tasks, index));
+    }
+}
+
+// Split the main animation loop into smaller tasks
+const animationTasks = dots.map(dot => () => dot.draw());
+processChunk(animationTasks, 0);
